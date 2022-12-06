@@ -66,6 +66,9 @@ docker push localhost:32000/nome_imagem_desejada:local
 ## Referencias:
 
 [Orientações MicroK8s](https://www.gasparbarancelli.com/post/instalando-microk8s-no-Ubuntu?lang=pt)
+
 [MicroK8s](https://microk8s.io/)
+
 [Artefatos Kubernetes](https://kubernetes.io/docs/home/)
+
 [Docker](https://docs.docker.com/)
