@@ -33,22 +33,34 @@ No navegador, acesse a url https://localhost:5000/hello-world , o esperado é ap
  Hello World - aplicação funcionando dentro do docker e orquestrado pelo Kubernetes
 ```
 
-Após a confirmação da execução correta do container, é necessário adicionar a imagem para ser utilizada pelo cluster criado pelo microK8s. primeiro devemos salvar a imagem em um arquivo TAR:
+Após a confirmação da execução correta do container, é necessário adicionar a imagem para ser utilizada pelo cluster criado pelo microK8s. Primeiro devemos ativar o registry, uma addons do microK8s com o proposito de armazenar imagens docker geradas localmente para utilização dentro do cluster:
 
 ```
-docker save nome_imagem_desejada > nome_imagem_desejada.tar
+microk8s enable registry
 ```
 
-E em seguida adiciona-lá ao microK8s:
+Apos ativar o registry, devemos criar um build para ser enviado ao registry:
 
 ```
-microk8s ctr image import nome_imagem_desejada.tar
+docker build . -t localhost:32000/nome_imagem_desejada:local
 ```
 
-Para confirmar se a imagem foi adicionada corretamente, liste as imagens que estão sendo utilizadas pelo microK8s:
+Em seguida devemos pegar o IMAGE ID da imagem gerada:
 
 ```
-microk8s ctr images ls
+docker images
+```
+
+Com o ID da imagem, devemos criar uma tag da imagem:
+
+```
+docker tag image_id_da_imagem localhost:32000/nome_imagem_desejada:local
+```
+
+Com a imagem devidamente tageada, devemos envia-lá ao registry:
+
+```
+docker push localhost:32000/nome_imagem_desejada:local
 ```
 
 ##Referencias:
