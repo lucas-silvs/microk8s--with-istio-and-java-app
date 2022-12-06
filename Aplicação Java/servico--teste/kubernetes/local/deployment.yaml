@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: service--teste
-          image: service--teste
+          image: localhost:32000/service--teste:latest
           env:
             - name: "SPRING_PROFILES_ACTIVE"
               value: "docker"
