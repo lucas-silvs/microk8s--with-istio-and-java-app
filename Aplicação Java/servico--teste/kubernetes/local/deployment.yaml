@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service--teste
+  namespace: service--teste
+  labels:
+    app: service--teste
+spec:
+  selector:
+    matchLabels:
+      app: service--teste
+  template:
+    metadata:
+      labels:
+        app: service--teste
+    spec:
+      containers:
+        - name: service--teste
+          image: service--teste
+          env:
+            - name: "SPRING_PROFILES_ACTIVE"
+              value: "docker"
+          resources:
+            requests:
+              memory: "400Mi"
+              cpu: "400m"
+            limits:
+              memory: "400Mi"
+              cpu: "400m"
+          ports:
+            - containerPort: 5000
+            - containerPort: 9090
