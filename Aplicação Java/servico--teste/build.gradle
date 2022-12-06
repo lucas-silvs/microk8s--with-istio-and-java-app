@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.lucassilvs'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = '11'
 
 repositories {
@@ -19,6 +19,10 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+jar {
+	enabled = false
 }
 
 tasks.named('test') {
