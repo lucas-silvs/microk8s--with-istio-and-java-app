@@ -33,6 +33,8 @@ No navegador, acesse a url https://localhost:5000/hello-world , o esperado é ap
  Hello World - aplicação funcionando dentro do docker e orquestrado pelo Kubernetes
 ```
 
+## Deploy no Cluster Kubernetes utilizando MicroK8s
+
 Após a confirmação da execução correta do container, é necessário adicionar a imagem para ser utilizada pelo cluster criado pelo microK8s. Primeiro devemos ativar o registry, uma addons do microK8s com o proposito de armazenar imagens docker geradas localmente para utilização dentro do cluster:
 
 ```
@@ -63,6 +65,22 @@ Com a imagem devidamente tageada, devemos envia-lá ao registry:
 docker push localhost:32000/nome_imagem_desejada:local
 ```
 
+Com a imagem salva no registry do cluster, agora devemos criar os artefatos do Kubernetes para a aplicação teste. Na pasta service--teste/kubernetes/local, você deve executar o seguinte comando abaixo:
+
+```
+microk8s kubectl apply -k .
+```
+
+Esse comando irá aplicar todos os artefatos Kubernetes listados no arquivo Kustomization.yaml
+
+## Criação Ingress
+
+Para poder realizar as requisições em um serviço hospedado em um cluster Kubernetes, precisamos expor o seu serviço. Existem muitas formas de expor o serviço no Kubernetes, mas aqui usaremos o ingress, que é um artefato do Istio para expor as aplicações, podendo ter host customizados, portas, e entre outras configurações. Para criar o ingress, entre na pasta Cluster Configuration e execute o seguinte comando abaixo:
+
+```
+microk8s kubectl apply -f ingress.yaml
+```
+
 ## Referencias:
 
 [Orientações MicroK8s](https://www.gasparbarancelli.com/post/instalando-microk8s-no-Ubuntu?lang=pt)
@@ -70,5 +88,7 @@ docker push localhost:32000/nome_imagem_desejada:local
 [MicroK8s](https://microk8s.io/)
 
 [Artefatos Kubernetes](https://kubernetes.io/docs/home/)
+
+[Kustomize](https://kustomize.io/)
 
 [Docker](https://docs.docker.com/)
